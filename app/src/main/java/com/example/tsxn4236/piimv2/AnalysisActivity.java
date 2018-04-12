@@ -48,6 +48,7 @@ public class AnalysisActivity extends Activity implements View.OnClickListener{
         this.i = i;
     }
 
+    //Commencement de l'intent
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -59,6 +60,7 @@ public class AnalysisActivity extends Activity implements View.OnClickListener{
 
     }
 
+    // Gestion des boutons
     public void onClick(View v) {
         switch(v.getId()) {
             // Si l'identifiant de la vue est celui du bouton capture
@@ -78,6 +80,7 @@ public class AnalysisActivity extends Activity implements View.OnClickListener{
         }
     }
 
+    // Fonction principal du traitement de l'analyse
     private void setPicture() {
 
         Mat imageLC = null;
@@ -190,6 +193,8 @@ public class AnalysisActivity extends Activity implements View.OnClickListener{
 
                 }
             }
+            // Récupération de la meilleur classe
+
             for(int i = 0; i < class_names.length; i++) {
                 tools.logAnalysis("classLoad: "+getCacheDir() +File.separator+ class_names[i][1]+ ".xml");
                 globalVariable.incCptProgressBar();
@@ -211,7 +216,7 @@ public class AnalysisActivity extends Activity implements View.OnClickListener{
         }
         tools.logAnalysis("Result : "+groupeKNN );// Print du resultat, le groupe auquel l'image appartient.
     }
-
+    // Traitement du vocabulaire
     private Mat vocab(String path){
 
             final Mat vocabulary;
@@ -242,6 +247,7 @@ public class AnalysisActivity extends Activity implements View.OnClickListener{
         return test;
     }
 
+    // Traitement de l'image retour pour affichage
     private void RequestImage(String url){
         ImageRequest imageRequest = new ImageRequest(url,
                 new Response.Listener<Bitmap>() {
@@ -274,6 +280,7 @@ public class AnalysisActivity extends Activity implements View.OnClickListener{
         //mRequestQueue.add(stringRequest);
     }
 
+    // Affichage de l'image prédide
     private void viewImagePredicted(){
         TextView textView;
         textView = findViewById(R.id.viewMark);
@@ -289,6 +296,7 @@ public class AnalysisActivity extends Activity implements View.OnClickListener{
         imageView.setImageURI( myUri);
     }
 
+    // Initialisation
     private void init(){
 
         Button returnButton; // creation des variables de la gestions des boutons

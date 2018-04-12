@@ -39,26 +39,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private GlobalVariable globalVariable = new GlobalVariable();
     private FileTreatments fileTreatments = new FileTreatments();
 
-
-
     private Button analysisButton;
     private ImageView imageViewMain;
     private Intent analysisIntent;
     private RequestQueue queue;
-
-    /*
-
-    globalVariable.isClickable et validateAnalysis
-
-     */
-
-
-
-
-
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
+    //Commencement de l'intent
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -67,7 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         analysisIntent = new Intent(MainActivity.this, AnalysisActivity.class);
         queue = Volley.newRequestQueue(this);
 
+
         new Traitment().execute("");
+        validateAnalysis();
 
         //delai pour le téléchargement des fichiers
         try {
@@ -77,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
+    @Override //Retour des activity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == GlobalVariable.REQUEST_PHOTO_LIB ) {
             validateAnalysis();
@@ -95,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handleCrop(resultCode, data);
         }
     }
-
+    // Gestion des boutons
     public void onClick(View v) {
         switch(v.getId()) {
             // Si l'identifiant de la vue est celui du bouton capture
@@ -113,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
+    // Gestion de l'activité de la librairie
     private void startPhotoLibraryActivity() {
         Intent photoLibIntent = new Intent();
         photoLibIntent.setType("image/*");
@@ -125,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // Gestion de l'activité de la capture de photo
     private void startCaptureActivity(){
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -138,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ex.printStackTrace();
             }
             if (photoFile != null) {
-                //photoFile.toURI();
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile.toURI());
                 tools.logFullFile(photoFile);
                 tools.logMain("photoFile.toUri"+photoFile.toURI()+" \nphotoFileLength: "+photoFile.length());
@@ -149,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void startAnalysisActivity(){ startActivityForResult(analysisIntent,GlobalVariable.REQUEST_ANALYSIS); }
 
+    //identification de l'url pour le traitement approprié
     private void caseURL(String url){
         File extract = new File(url);
         int posPoint = extract.getName().lastIndexOf('.');
@@ -165,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tools.logMain("erreur!!!");
         }
     }
-
+    // Fonction de la requête du fichier JSON
     private void RequestJSON(String url, String path) {
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -216,6 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         queue.add(jsonRequest);
     }
 
+    // Fonction de la requête du fichier YML
     private void RequestSTRING(String url){
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -260,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // Fonction pour le Crop
     private void beginCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(getCacheDir(), "aftercrop"));
         Crop.of(source, destination).asSquare().start(this);
@@ -291,6 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // Fonction qui recupére l'image et la transmet à l'intent analyse.
     private void getpicture(Intent data,int LibOrCap){
 
         if(LibOrCap==1){ //library
@@ -352,6 +345,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imageViewMain = (ImageView) findViewById(R.id.mainPicture);
 
     }
+    // Set des classifieurs
 
     private void setClassifier(String url, final String name){
 
@@ -408,7 +402,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected void onPostExecute(String result) {
             tools.logMain(" fin du Post Execute");
             //Change le bouton en cliquable
-            globalVariable.setClickable(true);
+            //globalVariable.setClickable(true);
+            analysisButton.setClickable(true);
+            analysisButton.setBackgroundColor(Color.GREEN);
             //validateAnalysis();
         }
 

@@ -9,6 +9,9 @@ import android.util.Log;
 import java.io.*;
 
 public class Tools {
+    /*
+    Classe pour l'ensembles des oyutils aidant au debug et au run
+     */
 
     private static final String TAG = Tools.class.getName();
 

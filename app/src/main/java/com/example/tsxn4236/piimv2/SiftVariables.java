@@ -1,6 +1,9 @@
 package com.example.tsxn4236.piimv2;
 
 public class SiftVariables {
+    /*
+    permet d'avoir une classe pour l'ensembles des variables utilisée pour l'analysis java cv
+     */
 
     public static final int nFeatures = 0;
     public static final int nOctaveLayers = 3;

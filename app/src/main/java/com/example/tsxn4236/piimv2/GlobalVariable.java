@@ -22,7 +22,7 @@ public class GlobalVariable {
 
     private String bestmatch;
 
-
+    //compteur pour la progress bar
     public int getCptProgressBar() {
         return cptProgressBar;
     }
@@ -30,6 +30,7 @@ public class GlobalVariable {
     public void incCptProgressBar(){
         cptProgressBar++;
     }
+    //compteur pour le téléchargement des fichiers
 
     public void decCptFinal(){
         cptFinal--;
@@ -42,7 +43,7 @@ public class GlobalVariable {
     public void setCptFinal(int cptFinal2) {
         this.cptFinal = this.cptFinal + cptFinal2;
     }
-
+    //permet de savoir si les fichiers sont bien téléchargé
     public boolean isAlreadyDownload() {
         return isAlreadyDownload;
     }
@@ -50,7 +51,7 @@ public class GlobalVariable {
     public void setAlreadyDownload(boolean alreadyDownload) {
         isAlreadyDownload = alreadyDownload;
     }
-
+    ///best match avec l'image avec la distance la moins élévé
     public String getBestmatch() {
         return bestmatch;
     }
@@ -59,6 +60,7 @@ public class GlobalVariable {
         this.bestmatch = bestmatch;
     }
 
+    //permet d'avoir le nom du vocabulaire
     public String getNameVocabulary() {
         return nameVocabulary;
     }
@@ -67,6 +69,7 @@ public class GlobalVariable {
         this.nameVocabulary = nameVocabulary;
     }
 
+    //test qui permet l'execution de l'analyse
     public boolean isClickable() {
         return isClickable;
     }

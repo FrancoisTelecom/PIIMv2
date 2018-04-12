@@ -11,11 +11,13 @@ public class FileTreatments {
     private File imageFile;
     private Bitmap resizedBitmap;
 
-
-    //GlobalVariable globalVariable = new GlobalVariable();
     private Tools tools = new Tools();
     GlobalVariable globalVariable = new GlobalVariable();
 
+    /*
+    *classe pour le traitement des fichiers
+     */
+    //permet de recupérer l'iumage dans le main
     public File getImageFile() {
         tools.logg("imageFile :"+imageFile.length());
         return imageFile;
@@ -26,7 +28,7 @@ public class FileTreatments {
         imageFile = new File(path + "/"+"pushpicture");
         tools.logFullFile(imageFile);
     }
-
+    //si l'image est trop grande permet de la rezize
     public void setResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
         int width = bm.getWidth();
         int height = bm.getHeight();
@@ -45,7 +47,7 @@ public class FileTreatments {
     public Bitmap getResizedBitmap(){
         return resizedBitmap;
     }
-
+    //permet d'écrire dans un fichier
     public String writeInFile(File file, String json) throws IOException{
         FileOutputStream fOut = new FileOutputStream(file);
         OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
@@ -57,7 +59,7 @@ public class FileTreatments {
         return file.getAbsolutePath();
 
     }
-
+    //transforme un drawable en bitmap
     public String creatBitmapByRessources(String nameFile, int drawableId, Bitmap btm, Resources res,File cacheDir) throws IOException {
         FileOutputStream output;
         Bitmap nfiles;
